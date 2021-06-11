@@ -8,6 +8,7 @@ package Janelas;
 import DAO.ProdutoDAO;
 import Model.ProdutoTableModel;
 import Objetos.Produto;
+import Objetos.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,19 @@ public class CadastroProduto extends javax.swing.JFrame {
         initComponents();
         jTProdutos.setModel(modelo);
         modelo.recarregaTabela();
+    }
+    
+    public CadastroProduto(Usuario Usuarios) {
+        initComponents();
+        jTProdutos.setModel(modelo);
+        modelo.recarregaTabela();
+        jLNome.setText(Usuarios.getNome());
+        jLTipo.setText(Usuarios.getTipo());
+        
+        if (Usuarios.getTipo().equals("USR")) {
+            jBUsuarios.setEnabled(false);
+        }
+        
     }
 
     /**
@@ -51,6 +65,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTProdutos = new javax.swing.JTable();
         jBUsuarios = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLNome = new javax.swing.JLabel();
+        jLTipo = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +151,45 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Usuário Logado:");
+
+        jLNome.setText("jLabel5");
+
+        jLTipo.setText("jLabel6");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Tipo:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLNome, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLNome)
+                    .addComponent(jLTipo)
+                    .addComponent(jLabel7))
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,7 +220,8 @@ public class CadastroProduto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jBRemover))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBUsuarios, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jBUsuarios, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -189,7 +248,9 @@ public class CadastroProduto extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBUsuarios)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -259,8 +320,9 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuariosActionPerformed
-        JanelaUsuario ju = new JanelaUsuario();
+        JanelaUsuario ju = new JanelaUsuario(this);
         ju.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jBUsuariosActionPerformed
 
     private void jTDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDescricaoActionPerformed
@@ -314,10 +376,15 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBUsuarios;
+    private javax.swing.JLabel jLNome;
+    private javax.swing.JLabel jLTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTDescricao;

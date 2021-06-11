@@ -125,4 +125,33 @@ public class UsuarioDAO {
        }
        return logado;
    }
+   
+   public Usuario dadosUsuario (String login, String senha) {
+       Connection con = Conexao.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Usuario u = new Usuario();
+        
+         try {
+            stmt = con.prepareStatement("SELECT * FROM tbl_usuarios WHERE login = ? AND senha = ?");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+            rs = stmt. executeQuery();
+          
+            while (rs.next()) {
+                
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setLogin(rs.getString("login"));
+                u.setSenha(rs.getString("senha"));
+                u.setTipo(rs.getString("tipo"));
+                
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Falha ao obter dados" + e);
+        } finally {
+            Conexao.closeConnection(con, stmt, rs);
+        }
+         return u;
+   }
 }

@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class JanelaUsuario extends javax.swing.JFrame {
     
     UsuarioTableModel modelo = new UsuarioTableModel();
+    CadastroProduto cp;
 
     /**
      * Creates new form Usuario
@@ -30,6 +31,17 @@ public class JanelaUsuario extends javax.swing.JFrame {
         jCTipo.addItem("USR");
         jCTipo.setSelectedIndex(1);
     }
+     public JanelaUsuario(CadastroProduto cp) {
+        initComponents();
+        jTUsuarios.setModel(modelo);
+        modelo.recarregaTabela();
+        jCTipo.removeAllItems();
+        jCTipo.addItem("ADM");
+        jCTipo.addItem("USR");
+        jCTipo.setSelectedIndex(1);
+        this.cp = cp;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +116,11 @@ public class JanelaUsuario extends javax.swing.JFrame {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -283,6 +300,10 @@ public class JanelaUsuario extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       cp.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
    private void limpaCampos() {
        jTNome.setText("");
